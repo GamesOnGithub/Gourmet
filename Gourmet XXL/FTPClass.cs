@@ -144,6 +144,52 @@ namespace Gourmet_XXL
         }
 
         /// <summary>
+        /// Alle auf einem $rootnamespace$-Server vorhandenen Dateien auslesen.
+        /// </summary>
+        /// <param name="FTPAddress"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public static bool tryConnection(string FTPAddress, string username, string password)
+        {
+            List<string> files = new List<string>();
+
+            try
+            {
+                //Create $rootnamespace$ request
+                FtpWebRequest request = FtpWebRequest.Create(FTPAddress) as FtpWebRequest;
+
+                request.Method = WebRequestMethods.Ftp.ListDirectory;
+                request.Credentials = new NetworkCredential(username, password);
+                request.UsePassive = true;
+                request.UseBinary = true;
+                request.KeepAlive = false;
+
+
+                FtpWebResponse response = request.GetResponse() as FtpWebResponse;
+                Stream responseStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(responseStream);
+
+                while (!reader.EndOfStream)
+                {
+                    Application.DoEvents();
+                    files.Add(reader.ReadLine());
+                }
+
+                //Clean-up
+                reader.Close();
+                responseStream.Close(); //redundant
+                response.Close();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Eine Datei oder einen Ordner von einem $rootnamespace$-Server löschen.
         /// </summary>
         /// <param name="uriString"></param>

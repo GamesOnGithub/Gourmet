@@ -11,6 +11,7 @@ using System.IO;
 
 using System.Net;
 using System.Drawing.Printing;
+using System.Threading;
 
 namespace Gourmet_XXL
 {
@@ -29,6 +30,9 @@ namespace Gourmet_XXL
 
         //SuchForm
         SuchForm suche;
+
+        //LoadForm
+        LoadForm laden;
 
         bool internetRecipes = false;
 
@@ -317,14 +321,20 @@ namespace Gourmet_XXL
 
             updateList();
 
+            Form1.CheckForIllegalCrossThreadCalls = false;
+            Thread th = new Thread(new ThreadStart(checkConnection));
+            th.Start();
+
             openFileDialog1.Filter = "Rezeptdateien|*.grec";
             saveFileDialog1.Filter = "Rezeptdateien|*.grec";
 
             comboBox1.SelectedIndex = 0;
 
-             suche = new SuchForm(this);
+            suche = new SuchForm(this);
 
-             fontToDruck = new Font(FontFamily.GenericSansSerif, 13F, FontStyle.Regular);
+            fontToDruck = new Font(FontFamily.GenericSansSerif, 13F, FontStyle.Regular);
+
+            laden = new LoadForm();
         }
 
         //Speise ausgewählt
@@ -927,6 +937,18 @@ namespace Gourmet_XXL
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             options.Save();
+        }
+
+        //Serververbindung überprüfen
+        void checkConnection()
+        {
+            if (FTPClass.tryConnection(@"ftp://ftp.lima-city.de/gourmetxxl/", "Hausseite", "tingle25") == false)
+            {
+                comboBox1.Enabled = false;
+                MessageBox.Show("Keine Serververbindung. Internet-Modus vorübergehend deaktiviert. Um den Internet-Modus zu nutzen, verbinden sie sich mit dem Internet und starten sie Gourmet-XXL neu!", "Hinweis");
+            }
+
+            Form1.CheckForIllegalCrossThreadCalls = true;
         }
     }
 }
