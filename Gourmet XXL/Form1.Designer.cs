@@ -74,9 +74,10 @@
             this.label1.BackColor = System.Drawing.Color.DimGray;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(16, 11);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(436, 29);
+            this.label1.Size = new System.Drawing.Size(531, 36);
             this.label1.TabIndex = 0;
             this.label1.Text = "Gourmet - Speisen mit Abwechslung";
             // 
@@ -84,18 +85,20 @@
             // 
             this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(611, 85);
+            this.listBox1.ItemHeight = 25;
+            this.listBox1.Location = new System.Drawing.Point(815, 105);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(385, 484);
+            this.listBox1.Size = new System.Drawing.Size(512, 579);
             this.listBox1.TabIndex = 3;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(485, 84);
+            this.button1.Location = new System.Drawing.Point(647, 103);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 27);
+            this.button1.Size = new System.Drawing.Size(160, 33);
             this.button1.TabIndex = 4;
             this.button1.Text = "Neue Speise";
             this.toolTip1.SetToolTip(this.button1, "Legt eine neue Speise inklusive Rezept an.");
@@ -104,9 +107,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(485, 117);
+            this.button2.Location = new System.Drawing.Point(647, 144);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(120, 27);
+            this.button2.Size = new System.Drawing.Size(160, 33);
             this.button2.TabIndex = 5;
             this.button2.Text = "Speise löschen";
             this.toolTip1.SetToolTip(this.button2, "Die ausgewählte Seise löschen (für immer!).");
@@ -115,9 +119,10 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(485, 150);
+            this.button3.Location = new System.Drawing.Point(647, 185);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(120, 27);
+            this.button3.Size = new System.Drawing.Size(160, 33);
             this.button3.TabIndex = 6;
             this.button3.Text = "Speise bearbeiten";
             this.toolTip1.SetToolTip(this.button3, "Die ausgewählte Speise bearbeiten.");
@@ -127,20 +132,22 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(12, 85);
+            this.textBox1.Location = new System.Drawing.Point(16, 105);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(467, 517);
+            this.textBox1.Size = new System.Drawing.Size(621, 635);
             this.textBox1.TabIndex = 7;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(485, 194);
+            this.button4.Location = new System.Drawing.Point(647, 239);
+            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(120, 27);
+            this.button4.Size = new System.Drawing.Size(160, 33);
             this.button4.TabIndex = 9;
             this.button4.Text = "Zufallsgericht!";
             this.toolTip1.SetToolTip(this.button4, "Wählt ein zufälliges Gericht aus der nebenstehende Liste aus.");
@@ -153,9 +160,10 @@
             this.label2.BackColor = System.Drawing.Color.DimGray;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(8, 58);
+            this.label2.Location = new System.Drawing.Point(11, 71);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(236, 24);
+            this.label2.Size = new System.Drawing.Size(296, 29);
             this.label2.TabIndex = 10;
             this.label2.Text = "Kein Gericht ausgewählt";
             // 
@@ -165,9 +173,10 @@
             this.label3.BackColor = System.Drawing.Color.DimGray;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(607, 58);
+            this.label3.Location = new System.Drawing.Point(809, 71);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(296, 24);
+            this.label3.Size = new System.Drawing.Size(371, 29);
             this.label3.TabIndex = 11;
             this.label3.Text = "Alle Gerichte - Bitte auswählen";
             // 
@@ -190,9 +199,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(927, 45);
+            this.label4.Location = new System.Drawing.Point(1236, 55);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 13);
+            this.label4.Size = new System.Drawing.Size(98, 17);
             this.label4.TabIndex = 15;
             this.label4.Text = "Über Gourmet";
             this.toolTip1.SetToolTip(this.label4, "Öffnet ein Informationsfenster zu diesem Programm (Gourmet).");
@@ -203,9 +213,10 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(930, 12);
+            this.pictureBox2.Location = new System.Drawing.Point(1240, 15);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(30, 30);
+            this.pictureBox2.Size = new System.Drawing.Size(40, 37);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
@@ -217,9 +228,10 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(966, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(1288, 15);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(30, 30);
+            this.pictureBox1.Size = new System.Drawing.Size(40, 37);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -233,9 +245,11 @@
             this.groupBox1.Controls.Add(this.pictureBox4);
             this.groupBox1.Controls.Add(this.pictureBox5);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(485, 525);
+            this.groupBox1.Location = new System.Drawing.Point(647, 646);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(120, 77);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(160, 95);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Import/Export";
@@ -244,9 +258,10 @@
             // 
             this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(6, 19);
+            this.pictureBox4.Location = new System.Drawing.Point(8, 23);
+            this.pictureBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox4.Size = new System.Drawing.Size(67, 62);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox4.TabIndex = 12;
             this.pictureBox4.TabStop = false;
@@ -259,9 +274,10 @@
             // 
             this.pictureBox5.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
-            this.pictureBox5.Location = new System.Drawing.Point(62, 19);
+            this.pictureBox5.Location = new System.Drawing.Point(83, 23);
+            this.pictureBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox5.Size = new System.Drawing.Size(67, 62);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox5.TabIndex = 13;
             this.pictureBox5.TabStop = false;
@@ -283,9 +299,10 @@
             // 
             this.pictureBox8.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox8.Image = global::Gourmet_XXL.Properties.Resources._1_Normal_Printer_icon;
-            this.pictureBox8.Location = new System.Drawing.Point(491, 347);
+            this.pictureBox8.Location = new System.Drawing.Point(655, 427);
+            this.pictureBox8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(114, 114);
+            this.pictureBox8.Size = new System.Drawing.Size(152, 140);
             this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox8.TabIndex = 20;
             this.pictureBox8.TabStop = false;
@@ -298,14 +315,14 @@
             // 
             this.pictureBox7.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox7.Image = global::Gourmet_XXL.Properties.Resources.search_blue_icon;
-            this.pictureBox7.Location = new System.Drawing.Point(491, 227);
+            this.pictureBox7.Location = new System.Drawing.Point(655, 279);
+            this.pictureBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(114, 114);
+            this.pictureBox7.Size = new System.Drawing.Size(152, 140);
             this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox7.TabIndex = 19;
             this.pictureBox7.TabStop = false;
-            this.toolTip2.SetToolTip(this.pictureBox7, "Nach einer Speise suchen. ACHTUNG: Kann im Internet-Modus zu starken Verzögerunge" +
-        "n führen!");
+            this.toolTip2.SetToolTip(this.pictureBox7, "Nach einer Speise suchen.");
             this.pictureBox7.Click += new System.EventHandler(this.pictureBox7_Click);
             this.pictureBox7.MouseEnter += new System.EventHandler(this.pictureBox1_MouseEnter);
             this.pictureBox7.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
@@ -314,9 +331,10 @@
             // 
             this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(547, 469);
+            this.pictureBox3.Location = new System.Drawing.Point(729, 577);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox3.Size = new System.Drawing.Size(67, 62);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 8;
             this.pictureBox3.TabStop = false;
@@ -330,9 +348,10 @@
             this.pictureBox6.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox6.BackgroundImage = global::Gourmet_XXL.Properties.Resources.Upload_01;
             this.pictureBox6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox6.Location = new System.Drawing.Point(491, 469);
+            this.pictureBox6.Location = new System.Drawing.Point(655, 577);
+            this.pictureBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox6.Size = new System.Drawing.Size(67, 62);
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox6.TabIndex = 18;
             this.pictureBox6.TabStop = false;
@@ -348,9 +367,10 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(608, 581);
+            this.label5.Location = new System.Drawing.Point(811, 715);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(58, 18);
+            this.label5.Size = new System.Drawing.Size(76, 24);
             this.label5.TabIndex = 16;
             this.label5.Text = "Quelle: ";
             // 
@@ -362,9 +382,10 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Lokal (auf diesem Computer vorhandene Rezepte)",
             "Internet (von anderen Gourmets erstellte Rezepte)"});
-            this.comboBox1.Location = new System.Drawing.Point(672, 580);
+            this.comboBox1.Location = new System.Drawing.Point(896, 714);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(324, 24);
+            this.comboBox1.Size = new System.Drawing.Size(431, 28);
             this.comboBox1.TabIndex = 17;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -378,10 +399,10 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(1008, 614);
+            this.ClientSize = new System.Drawing.Size(1344, 756);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.pictureBox8);
@@ -402,6 +423,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Gourmet - Speisen mit Abwechslung";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

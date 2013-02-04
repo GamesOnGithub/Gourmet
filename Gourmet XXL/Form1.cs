@@ -12,6 +12,7 @@ using System.IO;
 using System.Net;
 using System.Drawing.Printing;
 using System.Threading;
+using System.Net.NetworkInformation;
 
 namespace Gourmet_XXL
 {
@@ -30,9 +31,6 @@ namespace Gourmet_XXL
 
         //SuchForm
         SuchForm suche;
-
-        //LoadForm
-        LoadForm laden;
 
         bool internetRecipes = false;
 
@@ -321,20 +319,16 @@ namespace Gourmet_XXL
 
             updateList();
 
-            Form1.CheckForIllegalCrossThreadCalls = false;
-            Thread th = new Thread(new ThreadStart(checkConnection));
-            th.Start();
+            checkConnection();
 
             openFileDialog1.Filter = "Rezeptdateien|*.grec";
             saveFileDialog1.Filter = "Rezeptdateien|*.grec";
 
-            comboBox1.SelectedIndex = 0;
-
             suche = new SuchForm(this);
 
-            fontToDruck = new Font(FontFamily.GenericSansSerif, 13F, FontStyle.Regular);
+            comboBox1.SelectedIndex = 0;
 
-            laden = new LoadForm();
+            fontToDruck = new Font(FontFamily.GenericSansSerif, 13F, FontStyle.Regular);
         }
 
         //Speise ausgewählt
@@ -674,6 +668,8 @@ namespace Gourmet_XXL
                 button3.Enabled = false;
                 groupBox1.Visible = false;
                 pictureBox6.Image = Properties.Resources.Upload_02;
+                suche.Height = 223;
+                suche.setSearchButtonVisible(true);
             }
             else if (((ComboBox)sender).SelectedIndex == 0)
             {
@@ -682,6 +678,8 @@ namespace Gourmet_XXL
                 button3.Enabled = true;
                 groupBox1.Visible = true;
                 pictureBox6.Image = Properties.Resources.Upload_01;
+                suche.Height = 188;
+                suche.setSearchButtonVisible(false);
             }
 
             updateList();
@@ -798,37 +796,134 @@ namespace Gourmet_XXL
         // Font zum Drucken
         Font fontToDruck;
 
+        string fußZeile = "", titel = "";
+
         //Drucken
         private void pictureBox8_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedItem != null && textBox1.Text != "")
             {
-                printDialog1.AllowSomePages = true;
+                int indexOfDruckModeForm = (new DruckModeForm()).ShowDialogWithIndexReturn();
+                Speise ausgewählteSpeise = speisen[listBox1.SelectedIndex];
 
-                if (printDialog1.ShowDialog() == DialogResult.OK)
+                //Case -1
+                if (indexOfDruckModeForm == -1)
+                    return;
+
+                //Case "Ganzes Rezept"
+                if (indexOfDruckModeForm == 0)
                 {
-                    printDocument1.DocumentName = "Gourmet-Rezept: " + ((string)listBox1.SelectedItem).TrimEnd().TrimEnd();
-                    // Startwerte abhängig vom zu druckenden 
-                    // Text initialisieren 
-                    switch (printDialog1.PrinterSettings.PrintRange)
-                    {
-                        case PrintRange.AllPages:
-                            strPrintText = "\r\n\r\n\r\n\r\n" + textBox1.Text;
-                            startSeite = 1;
-                            anzahlSeiten = printDialog1.PrinterSettings.MaximumPage;
-                            break;
-                        case PrintRange.SomePages:
-                            strPrintText = "\r\n\r\n\r\n\r\n" + textBox1.Text;
-                            startSeite = printDialog1.PrinterSettings.FromPage;
-                            anzahlSeiten = printDialog1.PrinterSettings.ToPage
-                                                               - startSeite + 1;
-                            break;
-                    }
+                    printDialog1.AllowSomePages = true;
 
-                    // Drucken starten 
-                    seitenNummer = 1;
-                    printDocument1.Print();
-                } 
+                    if (printDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        printDocument1.DocumentName = "Gourmet-Rezept: " + ((string)listBox1.SelectedItem).TrimEnd().TrimEnd();
+                        // Startwerte abhängig vom zu druckenden 
+                        // Text initialisieren 
+                        switch (printDialog1.PrinterSettings.PrintRange)
+                        {
+                            case PrintRange.AllPages:
+                                strPrintText = "\r\n\r\n\r\n\r\n" + textBox1.Text;
+                                fußZeile = "Dieses Rezept wurde mit Gourmet XXL von Stefan Programs Inc.™ erstellt und gedruckt!";
+                                titel = (string)listBox1.SelectedItem;
+                                startSeite = 1;
+                                anzahlSeiten = printDialog1.PrinterSettings.MaximumPage;
+                                break;
+                            case PrintRange.SomePages:
+                                strPrintText = "\r\n\r\n\r\n\r\n" + textBox1.Text;
+                                fußZeile = "Dieses Rezept wurde mit Gourmet XXL von Stefan Programs Inc.™ erstellt und gedruckt!";
+                                titel = (string)listBox1.SelectedItem;
+                                startSeite = printDialog1.PrinterSettings.FromPage;
+                                anzahlSeiten = printDialog1.PrinterSettings.ToPage
+                                                                   - startSeite + 1;
+                                break;
+                        }
+
+                        // Drucken starten 
+                        seitenNummer = 1;
+                        printDocument1.Print();
+                    }
+                }
+
+                //Case "Einkaufszettel"
+                if (indexOfDruckModeForm == 1)
+                {
+                    printDialog1.AllowSomePages = true;
+
+                    if (printDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        printDocument1.DocumentName = "Einkaufszettel für " + ((string)listBox1.SelectedItem).TrimEnd().TrimEnd();
+                        // Startwerte abhängig vom zu druckenden 
+                        // Text initialisieren 
+                        switch (printDialog1.PrinterSettings.PrintRange)
+                        {
+                            case PrintRange.AllPages:
+                                strPrintText = "\r\n\r\n\r\n\r\n";
+                                foreach (string s in ausgewählteSpeise.Zutaten.Split(new string[]{"\r\n"}, StringSplitOptions.RemoveEmptyEntries))
+                                {
+                                    strPrintText += "\t- " + s + "\r\n";
+                                }
+                                titel = "Einkaufszettel für \"" + (string)listBox1.SelectedItem + "\"";
+                                fußZeile = "Dieser Einkaufszettel wurde mit Gourmet XXL von Stefan Programs Inc.™ erstellt und gedruckt!";
+                                startSeite = 1;
+                                anzahlSeiten = printDialog1.PrinterSettings.MaximumPage;
+                                break;
+                            case PrintRange.SomePages:
+                                strPrintText = "\r\n\r\n\r\n\r\n";
+                                foreach (string s in ausgewählteSpeise.Zutaten.Split(new string[]{"\r\n"}, StringSplitOptions.RemoveEmptyEntries))
+                                {
+                                    strPrintText += "\t- " + s + "\r\n";
+                                }
+                                titel = "Einkaufszettel für \"" + (string)listBox1.SelectedItem + "\"";
+                                fußZeile = "Dieser Einkaufszettel wurde mit Gourmet XXL von Stefan Programs Inc.™ erstellt und gedruckt!";
+                                startSeite = printDialog1.PrinterSettings.FromPage;
+                                anzahlSeiten = printDialog1.PrinterSettings.ToPage
+                                                                   - startSeite + 1;
+                                break;
+                        }
+
+                        // Drucken starten 
+                        seitenNummer = 1;
+                        printDocument1.Print();
+                    }
+                }
+
+                //Case "Nur Kochanleitung"
+                if (indexOfDruckModeForm == 2)
+                {
+                    printDialog1.AllowSomePages = true;
+
+                    if (printDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        printDocument1.DocumentName = "Gourmet-Rezept: " + ((string)listBox1.SelectedItem).TrimEnd().TrimEnd();
+                        // Startwerte abhängig vom zu druckenden 
+                        // Text initialisieren 
+                        switch (printDialog1.PrinterSettings.PrintRange)
+                        {
+                            case PrintRange.AllPages:
+                                strPrintText = "\r\n\r\n\r\n\r\nZUTATEN:\r\n" + ausgewählteSpeise.Zutaten + "\r\n\r\nZUBEREITUNG:\r\n" + ausgewählteSpeise.Zubereitung + "\r\n\r\nBEILAGEN:\r\n" + ausgewählteSpeise.Beilagen;
+                                fußZeile = "Dieses Rezept wurde mit Gourmet XXL von Stefan Programs Inc.™ erstellt und gedruckt!";
+                                titel = (string)listBox1.SelectedItem;
+                                startSeite = 1;
+                                anzahlSeiten = printDialog1.PrinterSettings.MaximumPage;
+                                break;
+                            case PrintRange.SomePages:
+                                strPrintText = "\r\n\r\n\r\n\r\nZUTATEN:\r\n" + ausgewählteSpeise.Zutaten + "\r\n\r\nZUBEREITUNG:\r\n" + ausgewählteSpeise.Zubereitung + "\r\n\r\nBEILAGEN:\r\n" + ausgewählteSpeise.Beilagen;
+                                fußZeile = "Dieses Rezept wurde mit Gourmet XXL von Stefan Programs Inc.™ erstellt und gedruckt!";
+                                titel = (string)listBox1.SelectedItem;
+                                startSeite = printDialog1.PrinterSettings.FromPage;
+                                anzahlSeiten = printDialog1.PrinterSettings.ToPage
+                                                                   - startSeite + 1;
+                                break;
+                        }
+
+                        // Drucken starten 
+                        seitenNummer = 1;
+                        printDocument1.Print();
+                    }
+                }
+
+                return;
             }
             else
                 MessageBox.Show("Nichts ausgewählt!", "Fehler");
@@ -899,7 +994,7 @@ namespace Gourmet_XXL
             stringFormat.Alignment = StringAlignment.Center;
 
             Font fontToPrintKopfzeile = new System.Drawing.Font(FontFamily.GenericSansSerif, 18F, FontStyle.Bold);
-            e.Graphics.DrawString((string)listBox1.SelectedItem, fontToPrintKopfzeile, Brushes.Black, rectFPapier, stringFormat);
+            e.Graphics.DrawString(titel, fontToPrintKopfzeile, Brushes.Black, rectFPapier, stringFormat);
 
             // Seitennummer in der Fußzeile anzeigen 
             stringFormat.LineAlignment = StringAlignment.Far;
@@ -914,7 +1009,7 @@ namespace Gourmet_XXL
             stringFormat.Alignment = StringAlignment.Near;
 
             Font fontToDruckTemp2 = new System.Drawing.Font(FontFamily.GenericSansSerif, 10F, FontStyle.Italic);
-            e.Graphics.DrawString("Dieses Rezept wurde mit Gourmet XXL von Stefan Programs Inc.™ erstellt und gedruckt!", fontToDruckTemp2,
+            e.Graphics.DrawString(fußZeile, fontToDruckTemp2,
                                  Brushes.Black, rectFPapier, stringFormat);
 
             // ermitteln, ob weitere Seiten zu drucken sind 
@@ -942,13 +1037,33 @@ namespace Gourmet_XXL
         //Serververbindung überprüfen
         void checkConnection()
         {
-            if (FTPClass.tryConnection(@"ftp://ftp.lima-city.de/gourmetxxl/", "Hausseite", "tingle25") == false)
+            bool isConnected;
+
+            Ping ping = new Ping();
+
+            try
+            {
+                PingReply reply = ping.Send("www.lima-city.de", 50);
+
+                isConnected = reply.Status == IPStatus.Success;
+
+                if (!isConnected)
+                {
+                    reply = ping.Send("www.lima-city.de", 50);
+
+                    isConnected = reply.Status == IPStatus.Success;
+                }
+            }
+            catch
+            {
+                isConnected = false;
+            }
+
+            if (!isConnected)
             {
                 comboBox1.Enabled = false;
                 MessageBox.Show("Keine Serververbindung. Internet-Modus vorübergehend deaktiviert. Um den Internet-Modus zu nutzen, verbinden sie sich mit dem Internet und starten sie Gourmet-XXL neu!", "Hinweis");
             }
-
-            Form1.CheckForIllegalCrossThreadCalls = true;
         }
     }
 }

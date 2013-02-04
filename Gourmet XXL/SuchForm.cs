@@ -36,6 +36,11 @@ namespace Gourmet_XXL
                 checkedListBox1.SetItemChecked(i, false);
             }
 
+            if (button1.Visible)
+            {
+                button1.PerformClick();
+            }
+
             this.Hide();
             form1.Select();
         }
@@ -43,34 +48,77 @@ namespace Gourmet_XXL
         //Zuweisen und so und co.
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            if (!button1.Visible)
+            {
+                nameToSearch = textBox1.Text.ToUpper();
+
+                if (nameToSearch == "")
+                    nameToSearch = " ";
+
+                form1.searchList();
+            }
+        }
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            if (!button1.Visible)
+            {
+                dauerToSearch = (int)numericUpDown1.Value;
+
+                form1.searchList();
+            }
+        }
+        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!button1.Visible)
+            {
+                attributeToSearch.Clear();
+                for (int i = 0; i < checkedListBox1.Items.Count; i++)
+                {
+                    if (checkedListBox1.CheckedItems.Contains(checkedListBox1.Items[i]))
+                    {
+                        attributeToSearch.Add((string)checkedListBox1.Items[i]);
+                    }
+                }
+
+                form1.searchList();
+            }
+        }
+        private void checkedListBox1_SelectedIndexChanged(object sender, MouseEventArgs e)
+        {
+            if (!button1.Visible)
+            {
+                attributeToSearch.Clear();
+                for (int i = 0; i < checkedListBox1.Items.Count; i++)
+                {
+                    if (checkedListBox1.CheckedItems.Contains(checkedListBox1.Items[i]))
+                    {
+                        attributeToSearch.Add((string)checkedListBox1.Items[i]);
+                    }
+                }
+
+                form1.searchList();
+            }
+        }
+
+        //Suchen-Button hiden/showen
+        public void setSearchButtonVisible(bool value)
+        {
+            button1.Visible = value;
+        }
+
+        //Suchen-Button klicken
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Text
             nameToSearch = textBox1.Text.ToUpper();
 
             if (nameToSearch == "")
                 nameToSearch = " ";
 
-            form1.searchList();
-        }
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
+            //Dauer
             dauerToSearch = (int)numericUpDown1.Value;
 
-            form1.searchList();
-        }
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            attributeToSearch.Clear();
-            for (int i = 0; i < checkedListBox1.Items.Count; i++)
-            {
-                if (checkedListBox1.CheckedItems.Contains(checkedListBox1.Items[i]))
-                {
-                    attributeToSearch.Add((string)checkedListBox1.Items[i]);
-                }
-            }
-
-            form1.searchList();
-        }
-        private void checkedListBox1_SelectedIndexChanged(object sender, MouseEventArgs e)
-        {
+            //Attribute
             attributeToSearch.Clear();
             for (int i = 0; i < checkedListBox1.Items.Count; i++)
             {
