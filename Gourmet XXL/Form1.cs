@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-//using System.Data.SqlClient;
 
 using System.Net;
 using System.Drawing.Printing;
@@ -360,7 +359,7 @@ namespace Gourmet_XXL
 
                     textBox1.Text += "\r\nZUTATEN (für " + speise.Personen + " Person(-en)): \r\n" + speise.Zutaten + "\r\n";
                     textBox1.Text += "ZUBEREITUNG: \r\n" + speise.Zubereitung;
-                    textBox1.Text += "\r\n\r\nBEILAGEN: \r\n" + speise.Beilagen;
+                    textBox1.Text += "\r\n\r\nBEILAGEN: \r\n" + speise.Beilagen.TrimEnd();
                 }
                 else
                 {
@@ -385,7 +384,7 @@ namespace Gourmet_XXL
 
                     textBox1.Text += "\r\nZUTATEN (für " + speise.Personen + " Person(-en)): \r\n" + speise.Zutaten + "\r\n";
                     textBox1.Text += "ZUBEREITUNG: \r\n" + speise.Zubereitung;
-                    textBox1.Text += "\r\n\r\nBEILAGEN: \r\n" + speise.Beilagen;
+                    textBox1.Text += "\r\n\r\nBEILAGEN: \r\n" + speise.Beilagen.TrimEnd();
                 }
             }
             else
@@ -697,7 +696,27 @@ namespace Gourmet_XXL
             if (listBox1.SelectedItem != null)
             {
                 if (!internetRecipes)
-                    FTPClass.uploadFile(@"ftp://ftp.lima-city.de/gourmetxxl/" + ((string)listBox1.SelectedItem).Replace("ü", "ue").Replace("Ü", "UE").Replace("ä", "ae").Replace("Ä", "AE").Replace("Ö", "OE").Replace("ö", "oe") + ".grec", "Hausseite", "tingle25", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Gourmet XXL\\" + "\\recipes\\" + listBox1.SelectedItem + ".grec");
+                {
+                    bool isOk = true;
+
+                    //Auf Überschreibung prüfen
+                    List<string> liste1 = FTPClass.getFileList(@"ftp://ftp.lima-city.de/gourmetxxl/", "Hausseite", "tingle25");
+
+                    if (liste1.Contains((string)listBox1.SelectedItem + ".grec"))
+                    {
+                        if (MessageBox.Show("\"" + (string)listBox1.SelectedItem + "\" existiert bereits. Soll \"" + (string)listBox1.SelectedItem + "\" überschrieben werden?", "Frage", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
+                        {
+                            isOk = false;
+                        }
+                    }
+
+                    if (isOk)
+                    {
+                        string fileName = ((string)listBox1.SelectedItem).Replace("ü", "ue").Replace("Ü", "UE").Replace("ä", "ae").Replace("Ä", "AE").Replace("Ö", "OE").Replace("ö", "oe");
+                        string sOut = Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(fileName));
+                        FTPClass.uploadFile(@"ftp://ftp.lima-city.de/gourmetxxl/" + sOut + ".grec", "Hausseite", "tingle25", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Gourmet XXL\\" + "\\recipes\\" + listBox1.SelectedItem + ".grec");
+                    }
+                }
 
                 else
                 {
@@ -817,7 +836,7 @@ namespace Gourmet_XXL
 
                     if (printDialog1.ShowDialog() == DialogResult.OK)
                     {
-                        printDocument1.DocumentName = "Gourmet-Rezept: " + ((string)listBox1.SelectedItem).TrimEnd().TrimEnd();
+                        printDocument1.DocumentName = "Gourmet-Rezept: " + ((string)listBox1.SelectedItem).TrimEnd();
                         // Startwerte abhängig vom zu druckenden 
                         // Text initialisieren 
                         switch (printDialog1.PrinterSettings.PrintRange)
@@ -852,7 +871,7 @@ namespace Gourmet_XXL
 
                     if (printDialog1.ShowDialog() == DialogResult.OK)
                     {
-                        printDocument1.DocumentName = "Einkaufszettel für " + ((string)listBox1.SelectedItem).TrimEnd().TrimEnd();
+                        printDocument1.DocumentName = "Einkaufszettel für " + ((string)listBox1.SelectedItem).TrimEnd();
                         // Startwerte abhängig vom zu druckenden 
                         // Text initialisieren 
                         switch (printDialog1.PrinterSettings.PrintRange)
@@ -864,7 +883,7 @@ namespace Gourmet_XXL
                                     strPrintText += "\t- " + s + "\r\n";
                                 }
                                 titel = "Einkaufszettel für \"" + (string)listBox1.SelectedItem + "\"";
-                                fußZeile = "Dieser Einkaufszettel wurde mit Gourmet XXL von Stefan Programs Inc.™ erstellt und gedruckt!";
+                                fußZeile = "Dieser Einkaufszettel wurde mit Gourmet XXL von Stefan Programs Inc.™ gedruckt!";
                                 startSeite = 1;
                                 anzahlSeiten = printDialog1.PrinterSettings.MaximumPage;
                                 break;
@@ -875,7 +894,7 @@ namespace Gourmet_XXL
                                     strPrintText += "\t- " + s + "\r\n";
                                 }
                                 titel = "Einkaufszettel für \"" + (string)listBox1.SelectedItem + "\"";
-                                fußZeile = "Dieser Einkaufszettel wurde mit Gourmet XXL von Stefan Programs Inc.™ erstellt und gedruckt!";
+                                fußZeile = "Dieser Einkaufszettel wurde mit Gourmet XXL von Stefan Programs Inc.™ gedruckt!";
                                 startSeite = printDialog1.PrinterSettings.FromPage;
                                 anzahlSeiten = printDialog1.PrinterSettings.ToPage
                                                                    - startSeite + 1;
@@ -895,7 +914,7 @@ namespace Gourmet_XXL
 
                     if (printDialog1.ShowDialog() == DialogResult.OK)
                     {
-                        printDocument1.DocumentName = "Gourmet-Rezept: " + ((string)listBox1.SelectedItem).TrimEnd().TrimEnd();
+                        printDocument1.DocumentName = "Gourmet-Rezept: " + ((string)listBox1.SelectedItem).TrimEnd();
                         // Startwerte abhängig vom zu druckenden 
                         // Text initialisieren 
                         switch (printDialog1.PrinterSettings.PrintRange)
@@ -1043,13 +1062,13 @@ namespace Gourmet_XXL
 
             try
             {
-                PingReply reply = ping.Send("www.lima-city.de", 50);
+                PingReply reply = ping.Send("www.lima-city.de", 100);
 
                 isConnected = reply.Status == IPStatus.Success;
 
                 if (!isConnected)
                 {
-                    reply = ping.Send("www.lima-city.de", 50);
+                    reply = ping.Send("www.lima-city.de", 100);
 
                     isConnected = reply.Status == IPStatus.Success;
                 }

@@ -17,6 +17,7 @@ namespace Gourmet_XXL
         }
 
         private int selectedIndex = -1;
+        private bool cancelClose = true;
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -33,6 +34,7 @@ namespace Gourmet_XXL
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            cancelClose = false;
             this.Close();
         }
 
@@ -40,6 +42,12 @@ namespace Gourmet_XXL
         {
             this.ShowDialog();
             return selectedIndex;
+        }
+
+        private void DruckModeForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (cancelClose)
+                selectedIndex = -1;
         }
     }
 }

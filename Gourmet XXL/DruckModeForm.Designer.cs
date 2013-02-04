@@ -83,6 +83,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "DruckModeForm";
             this.Text = "DruckModeForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DruckModeForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

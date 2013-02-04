@@ -42,13 +42,13 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(366, 102);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Gourmet XXL\r\nby Stefan Programs ( © 2013 )\r\n\r\nVersion 2.5 vom 02.02.2013\r\n\r\nDiese" +
-    "s Programm ist weltweit urheberrechtlich geschützt.";
+            this.label1.Text = "Gourmet XXL\r\nby Stefan Programs ( © 2013 )\r\n\r\nVersion 2.5.2 vom 04.02.2013\r\n\r\nDie" +
+    "ses Programm ist weltweit urheberrechtlich geschützt.";
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(16, 113);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(353, 37);
             this.button1.TabIndex = 1;
@@ -65,7 +65,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "INfo";
             this.Text = "Info";
             this.Load += new System.EventHandler(this.INfo_Load);

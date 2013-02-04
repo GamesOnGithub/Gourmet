@@ -47,7 +47,7 @@ namespace Gourmet_XXL
                 requestStream.Close();
                 // Verbindung beenden
                 request.Abort();
-                MessageBox.Show("Datei wurde erfolgreich hochgeladen!\r\nHinweis: Alle Umlaute wurden durch \"ae\", \"ue\" und \"oe\" ersetzt.", "Hochladen erfolgreich");
+                MessageBox.Show("Datei wurde erfolgreich hochgeladen!\r\nHinweis: Alle Umlaute wurden durch \"ae\", \"ue\" und \"oe\" ersetzt. Zeichen die nicht dem dem ASCII-Standartzeichensatz entsprechen wurden als '?' (Fragezeichen) gespeichert.", "Hochladen erfolgreich");
             }
 
             catch (Exception ex)
