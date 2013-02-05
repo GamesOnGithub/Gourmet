@@ -652,7 +652,6 @@ namespace Gourmet_XXL
         private void label4_Click(object sender, EventArgs e)
         {
             INfo infoFenster = new INfo();
-            infoFenster.ShowInTaskbar = false;
             infoFenster.TopMost = true;
             infoFenster.ShowDialog();
         }
@@ -1083,6 +1082,14 @@ namespace Gourmet_XXL
                 comboBox1.Enabled = false;
                 MessageBox.Show("Keine Serververbindung. Internet-Modus vorübergehend deaktiviert. Um den Internet-Modus zu nutzen, verbinden sie sich mit dem Internet und starten sie Gourmet-XXL neu!", "Hinweis");
             }
+        }
+
+        //Logo-Klick
+        private void pictureBox9_Click(object sender, EventArgs e)
+        {
+            INfo infoFenster = new INfo();
+            infoFenster.TopMost = true;
+            infoFenster.ShowDialog();
         }
     }
 }
